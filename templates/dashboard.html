@@ -1,0 +1,293 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager Dashboard</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logout-btn {
+            position: absolute;
+            right: 25px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover {
+            background: rgba(231, 76, 60, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+        }
+        .dashboard-container {
+            max-width: 600px;
+            margin: 60px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .stats-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+        .stats-card h3 {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stats-card .count {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .create-section {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .create-section h2 {
+            color: #1e293b;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .create-section p {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 20px 24px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        .btn-primary, .btn-secondary {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+        }
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
+            margin-top: 16px;
+        }
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+        .success-message {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #27ae60;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .dashboard-container {
+                margin: 40px 20px;
+                gap: 24px;
+            }
+            .header {
+                height: 70px;
+                border-radius: 16px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Task Manager</h1>
+        <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Stats Card -->
+        <div class="stats-card">
+            <h3>Total Tasks</h3>
+            <div class="count" id="taskCount">0</div>
+        </div>
+
+        <!-- Create Task Section -->
+        <div class="create-section">
+            <h2>Create New Task</h2>
+            <p>Add your first task or any new task to get started.</p>
+            
+            <div class="input-group">
+                <input type="text" id="newTask" placeholder="What needs to be done today?" maxlength="200">
+            </div>
+            
+            <button class="btn-primary" onclick="addTask()">
+                <span>➕</span> Add Task
+            </button>
+            
+            <div class="success-message" id="successMsg">
+                Task created successfully! 🎉
+            </div>
+            
+            <a href="/tasks/" class="btn-secondary" onclick="goToTasks()">
+                 View All Tasks
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem("access");
+        if (!token) window.location.href = "/login/";
+
+        fetch("/api/tasks/", {
+            headers: { "Authorization": "Bearer " + token }
+        })
+        .then(res => res.json())
+        .then(tasks => {
+            document.getElementById("taskCount").textContent = tasks.length;
+        });
+
+        function addTask() {
+            const title = document.getElementById("newTask").value.trim();
+            const successMsg = document.getElementById("successMsg");
+            
+            if (!title) {
+                alert("Please enter a task title!");
+                return;
+            }
+
+            fetch("/api/tasks/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({ title })
+            })
+            .then(res => {
+                if (res.ok) {
+                    document.getElementById("newTask").value = "";
+                    successMsg.style.display = "block";
+                    setTimeout(() => successMsg.style.display = "none", 3000);
+                    
+                    // Update task count
+                    fetch("/api/tasks/", {
+                        headers: { "Authorization": "Bearer " + token }
+                    })
+                    .then(res => res.json())
+                    .then(tasks => {
+                        document.getElementById("taskCount").textContent = tasks.length;
+                    });
+                } else {
+                    alert("Failed to create task. Please try again.");
+                }
+            })
+            .catch(() => {
+                alert("Network error. Please check your connection.");
+            });
+        }
+
+        function goToTasks() {
+            window.location.href = "/tasks/";
+        }
+
+        function logout() {
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
+            window.location.href = "/login/";
+        }
+
+        // Allow Enter key to submit
+        document.getElementById("newTask").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>
