@@ -18,9 +18,9 @@ Full-stack task management application built with Django REST Framework with JWT
 - Protected routes check IsAuthenticated permission
 
 ### 2. Task Management Flow
-Dashboard (/dashboard/)
-├── Create task → POST /api/tasks/ {title: "Buy groceries"}
-└── View Tasks → GET /tasks/
+Dashboard
+- Create task → POST /api/tasks/ {title: "Buy groceries"}
+- View Tasks → GET /tasks/
 
 Tasks Page (/tasks/)
 - List all tasks → GET /api/tasks/
