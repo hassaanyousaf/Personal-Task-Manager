@@ -23,15 +23,15 @@ Dashboard (/dashboard/)
 └── View Tasks → GET /tasks/
 
 Tasks Page (/tasks/)
-├── List all tasks → GET /api/tasks/
-├── Inline edit title → PATCH /api/tasks/{id}/ {title: "new title"}
-├── Toggle complete → PATCH /api/tasks/{id}/ {completed: true}
-├── Delete → DELETE /api/tasks/{id}/
-└── Edit → /update/{id}/ (full form)
+- List all tasks → GET /api/tasks/
+-  Inline edit title → PATCH /api/tasks/{id}/ {title: "new title"}
+- Toggle complete → PATCH /api/tasks/{id}/ {completed: true}
+- Delete → DELETE /api/tasks/{id}/
+- Edit → /update/{id}/ (full form)
 
 Update Page (/update/{id}/)
-├── Load task → GET /api/tasks/{id}/
-└── Full update → PUT /api/tasks/{id}/ {title, description, completed}
+- Load task → GET /api/tasks/{id}/
+- Full update → PUT /api/tasks/{id}/ {title, description, completed}
 
 ## Tech Stack
 - Backend: Django 5.0, Django REST Framework 3.15, SimpleJWT
